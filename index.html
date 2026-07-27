@@ -1,816 +1,846 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+  <meta property="og:title" content="Hi Safiya, there's something I want to tell you ✨" />  
+  <meta property="og:description" content="Mehzabin Ansari Tisha — Tap to open your birthday card." />  
+  <meta property="og:type" content="website" />    
+  <title>Happy Birthday Safiya!</title>    
   
-  <meta property="og:title" content="Hi Safiya, there's something I want to tell you ✨" />
-  <meta property="og:description" content="Mehzabin Ansari Tisha — Tap to open your birthday card." />
-  <meta property="og:type" content="website" />
+  <!-- Premium Google Fonts Imports -->    
+  <link rel="preconnect" href="https://fonts.googleapis.com">  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">    
 
-  <title>Happy Birthday Safiya!</title>
+  <style>  
+    :root {  
+      --bg-gradient: radial-gradient(circle at center, #1e112a 0%, #080914 100%);  
+      --glass-bg: rgba(22, 27, 46, 0.82);  
+      --glass-border: rgba(255, 255, 255, 0.12);  
+      --accent: #ff3b60;  
+      --accent-glow: rgba(255, 59, 96, 0.5);  
+      --purple: #a855f7;  
+      --gold: #fbbf24;  
+      --text-main: #f8fafc;  
+      --text-sub: #94a3b8;  
+    }  
+  
+    * {  
+      box-sizing: border-box;  
+      margin: 0;  
+      padding: 0;  
+      font-family: 'Outfit', sans-serif;  
+    }  
+  
+    body {  
+      background: var(--bg-gradient);  
+      color: var(--text-main);  
+      min-height: 100vh;  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      overflow-x: hidden;  
+      position: relative;  
+    }  
+  
+    #spaceCanvas, #effectsCanvas {  
+      position: fixed;  
+      top: 0;  
+      left: 0;  
+      width: 100%;  
+      height: 100%;  
+      pointer-events: none;  
+      transform: translateZ(0);
+      will-change: transform;
+    }  
+    #spaceCanvas { z-index: 1; }  
+    #effectsCanvas { z-index: 10; }  
+  
+    .app-container {  
+      position: relative;  
+      z-index: 2;  
+      width: 92%;  
+      max-width: 440px;  
+      padding: 24px 0;  
+    }  
+  
+    /* GLASS CARDS */  
+    .glass-box {  
+      background: var(--glass-bg);  
+      backdrop-filter: blur(18px);  
+      -webkit-backdrop-filter: blur(18px);  
+      border: 1px solid var(--glass-border);  
+      border-radius: 24px;  
+      padding: 24px;  
+      margin-bottom: 20px;  
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);  
+      transform: translateZ(0);
+      will-change: transform;
+    }  
+  
+    /* SCREEN 1: UNLOCK */  
+    .unlock-card {  
+      background: var(--glass-bg);  
+      backdrop-filter: blur(20px);  
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);  
+      border-radius: 28px;  
+      padding: 48px 24px;  
+      text-align: center;  
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);  
+      transition: opacity 0.6s ease, transform 0.6s ease;  
+      transform: translateZ(0);
+      will-change: transform, opacity;
+    }  
 
-  <!-- Google Fonts Imports -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg-gradient: radial-gradient(circle at center, #1e112a 0%, #080914 100%);
-      --glass-bg: rgba(22, 27, 46, 0.82);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --accent: #ff3b60;
-      --accent-glow: rgba(255, 59, 96, 0.5);
-      --purple: #a855f7;
-      --gold: #fbbf24;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
+    .unlock-card h2 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.2px;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    body {
-      background: var(--bg-gradient);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    #spaceCanvas, #effectsCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    #spaceCanvas { z-index: 1; }
-    #effectsCanvas { z-index: 10; }
-
-    .app-container {
-      position: relative;
-      z-index: 2;
-      width: 92%;
-      max-width: 440px;
-      padding: 24px 0;
-    }
-
-    /* GLASS CARDS */
-    .glass-box {
-      background: var(--glass-bg);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    /* SCREEN 1: UNLOCK */
-    .unlock-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 28px;
-      padding: 48px 24px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .pulse-btn {
-      background: linear-gradient(135deg, #ff3b60, #d91b42);
-      color: #fff;
-      border: none;
-      padding: 16px 38px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      border-radius: 9999px;
-      cursor: pointer;
-      margin-top: 28px;
-      box-shadow: 0 0 25px var(--accent-glow);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 96, 0.7); }
-      70% { transform: scale(1.04); box-shadow: 0 0 0 16px rgba(255, 59, 96, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 96, 0); }
-    }
-
-    /* SCREENS SWITCHING */
-    .view-screen {
-      display: none;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .view-screen.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* COUNTER & HEADER */
-    .header-box { text-align: center; }
-    .nickname { 
-      font-family: 'Dancing Script', cursive; 
-      color: #ff5277; 
-      font-size: 3.2rem; 
-      font-weight: 700;
-      line-height: 1.1;
-      text-shadow: 0 0 18px rgba(255, 59, 96, 0.4);
-    }
-    .full-name { 
-      color: var(--text-sub); 
-      font-size: 0.85rem; 
-      letter-spacing: 2px;
-      text-transform: uppercase; 
-      margin-top: 4px;
-      margin-bottom: 12px; 
-    }
-    .badge { 
-      display: inline-block; 
-      background: rgba(255, 59, 96, 0.15); 
-      border: 1px solid rgba(255, 59, 96, 0.3); 
-      color: #ff758f; 
-      font-size: 0.8rem; 
-      padding: 4px 14px; 
-      border-radius: 999px; 
-      font-weight: 600; 
-    }
-
-    .counter-title { 
-      font-size: 0.78rem; 
-      text-transform: uppercase; 
-      letter-spacing: 1.8px; 
-      color: var(--text-sub); 
-      margin-bottom: 14px; 
-      text-align: center; 
-      font-weight: 700;
-    }
-    .counter-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-    .time-unit { background: rgba(10, 14, 26, 0.65); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px 4px; text-align: center; }
-    .time-unit .val { font-size: 1.15rem; font-weight: 800; color: #ffffff; display: block; }
-    .time-unit .lbl { font-size: 0.65rem; color: var(--text-sub); text-transform: uppercase; }
-
-    /* HEART TREE CANVAS */
-    #treeCanvas { width: 100%; height: 310px; display: block; margin: 0 auto; }
-    .tree-quote { 
-      margin-top: 14px; 
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.35rem; 
-      line-height: 1.5;
-      color: #ffd6e0; 
-      padding: 14px 18px; 
-      background: rgba(255, 59, 96, 0.08); 
-      border-radius: 16px; 
-      border: 1px dashed rgba(255, 59, 96, 0.3); 
-      text-align: center; 
-    }
-
-    /* EVENT CARDS */
-    .event-card { background: rgba(12, 16, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }
-    .event-img { width: 100%; height: 140px; object-fit: cover; display: block; }
-    .event-content { padding: 14px; }
-    .event-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
-    .event-heading { font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
-    .event-desc { font-size: 0.85rem; line-height: 1.5; color: #cbd5e1; }
-
-    /* SURPRISE BUTTON */
-    .surprise-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #ff3b60, #a855f7);
-      color: #ffffff;
-      border: none;
-      padding: 16px 36px;
-      border-radius: 9999px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(255, 59, 96, 0.5);
-      animation: pulseGlow 2s infinite alternate;
-    }
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 15px rgba(255, 59, 96, 0.4); transform: scale(1); }
-      100% { box-shadow: 0 0 32px rgba(168, 85, 247, 0.85); transform: scale(1.04); }
-    }
-
-    /* SCREEN 3: HANGING BANNER */
-    .banner-container { display: flex; justify-content: center; gap: 6px; margin-bottom: 25px; position: relative; }
-    .pennant { padding: 8px 10px 14px; font-size: 0.85rem; font-weight: 800; color: #fff; clip-path: polygon(0 0, 100% 0, 50% 100%); animation: swing 2s ease-in-out infinite alternate; transform-origin: top center; }
-    @keyframes swing { 0% { transform: rotate(-4deg); } 100% { transform: rotate(4deg); } }
-
-    /* ANIMATED KAWAII CAKE */
-    .cake-container {
-      position: relative;
-      width: 240px;
-      height: 230px;
-      margin: 10px auto 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .cake-container:active {
-      transform: scale(0.96);
-      transition: transform 0.1s ease;
-    }
-
-    .cake-wrapper-bounce {
-      animation: cakeFloat 3s ease-in-out infinite;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    @keyframes cakeFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .glow-aura {
-      position: absolute;
-      top: -10px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, rgba(11, 15, 25, 0) 70%);
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 1s ease;
-      pointer-events: none;
-    }
-    .glow-aura.lit { opacity: 1; animation: auraPulse 1.8s infinite alternate; }
-    @keyframes auraPulse { 0% { transform: scale(0.92); opacity: 0.7; } 100% { transform: scale(1.1); opacity: 1; } }
-
-    /* CANDLES & FLAMES */
-    .candles-group { display: flex; gap: 24px; z-index: 5; margin-bottom: -5px; }
-    .candle { width: 12px; height: 42px; border-radius: 4px; position: relative; }
-    .c1 { background: repeating-linear-gradient(45deg, #ff758f, #ff758f 6px, #ffffff 6px, #ffffff 12px); }
-    .c2 { background: repeating-linear-gradient(-45deg, #60a5fa, #60a5fa 6px, #ffffff 6px, #ffffff 12px); }
-    .c3 { background: repeating-linear-gradient(45deg, #34d399, #34d399 6px, #ffffff 6px, #ffffff 12px); }
-    
-    .wick { position: absolute; top: -6px; left: 5px; width: 2px; height: 6px; background: #475569; }
-    .flame {
-      position: absolute;
-      top: -20px;
-      left: -1px;
-      width: 14px;
-      height: 20px;
-      background: radial-gradient(circle at 50% 80%, #ffffff 10%, #fbbf24 50%, #f97316 100%);
-      border-radius: 50% 50% 35% 35%;
-      box-shadow: 0 0 15px #fbbf24;
-      opacity: 0;
-      transform: scale(0.2);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .flame.lit { opacity: 1; transform: scale(1); animation: flicker 0.12s infinite alternate; }
-    @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 100% { transform: scale(1.1) rotate(2deg); } }
-
-    /* 2-TIER CAKE DESIGN */
-    .cake-top-tier {
-      width: 140px;
-      height: 55px;
-      background: #ffffff;
-      border-radius: 16px 16px 10px 10px;
-      position: relative;
-      z-index: 4;
-      box-shadow: inset 0 -6px 0 rgba(0,0,0,0.05);
-    }
-    .top-frosting { position: absolute; top: 0; width: 100%; height: 22px; background: #ff758f; border-radius: 16px 16px 0 0; }
-    .top-drips { position: absolute; top: 18px; width: 100%; display: flex; justify-content: space-around; }
-    .top-drip { width: 16px; height: 12px; background: #ff758f; border-radius: 0 0 8px 8px; }
-
-    .cake-bottom-tier {
-      width: 210px;
-      height: 85px;
-      background: #ffffff;
-      border-radius: 18px 18px 12px 12px;
-      position: relative;
-      z-index: 3;
-      margin-top: -6px;
-      box-shadow: inset 0 -8px 0 rgba(0,0,0,0.06), 0 15px 30px rgba(0, 0, 0, 0.5);
-    }
-    .bottom-frosting { position: absolute; top: 0; width: 100%; height: 30px; background: #a855f7; border-radius: 18px 18px 0 0; }
-    .bottom-drips { position: absolute; top: 24px; width: 100%; display: flex; justify-content: space-around; }
-    .bottom-drip { width: 22px; height: 16px; background: #a855f7; border-radius: 0 0 10px 10px; }
-
-    /* KAWAII EXPRESSION */
-    .kawaii-face {
-      position: absolute;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .eye {
-      width: 11px;
-      height: 11px;
-      background: #1e293b;
-      border-radius: 50%;
-      position: relative;
-      animation: kawaiiBlink 3.8s infinite;
-    }
-    @keyframes kawaiiBlink {
-      0%, 94%, 100% { transform: scaleY(1); }
-      97% { transform: scaleY(0.1); }
-    }
-    .blush {
-      position: absolute;
-      width: 12px;
-      height: 6px;
-      background: #ff3b60;
-      border-radius: 50%;
-      opacity: 0.6;
-      top: 9px;
-    }
-    .blush.left { left: -8px; }
-    .blush.right { right: -8px; }
-
-    .mouth {
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 14px;
-      height: 9px;
-      border-bottom: 3.5px solid #1e293b;
-      border-radius: 0 0 10px 10px;
-    }
-
-    .cherries { position: absolute; top: -10px; width: 100%; display: flex; justify-content: space-around; padding: 0 15px; }
-    .cherry { width: 12px; height: 12px; background: #ff3b60; border-radius: 50%; box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2); }
-
-    .plate { width: 240px; height: 14px; background: #334155; border-radius: 10px; margin-top: -6px; z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-
-    .tap-hint {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 6px 16px;
-      border-radius: 99px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 20px;
-      text-align: center;
-      transition: opacity 0.5s ease;
-    }
-
-    /* WISH CARD */
-    .wish-card {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.4rem;
-      line-height: 1.7;
-      border-left: 4px solid var(--accent);
-      color: #ffffff;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-  </style>
-</head>
-<body>
-
+  
+    .pulse-btn {  
+      background: linear-gradient(135deg, #ff3b60, #d91b42);  
+      color: #fff;  
+      border: none;  
+      padding: 16px 38px;  
+      font-size: 1.05rem;  
+      font-weight: 700;  
+      letter-spacing: 0.5px;
+      border-radius: 9999px;  
+      cursor: pointer;  
+      margin-top: 28px;  
+      box-shadow: 0 0 25px var(--accent-glow);  
+      animation: pulse 2s infinite;  
+      will-change: transform, box-shadow;
+    }  
+  
+    @keyframes pulse {  
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 96, 0.7); }  
+      70% { transform: scale(1.04); box-shadow: 0 0 0 16px rgba(255, 59, 96, 0); }  
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 96, 0); }  
+    }  
+  
+    /* SCREENS SWITCHING */  
+    .view-screen {  
+      display: none;  
+      opacity: 0;  
+      transform: translateY(30px) translateZ(0);  
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);  
+      will-change: opacity, transform;
+    }  
+  
+    .view-screen.active {  
+      display: block;  
+      opacity: 1;  
+      transform: translateY(0) translateZ(0);  
+    }  
+  
+    /* COUNTER & HEADER */  
+    .header-box { text-align: center; }  
+    .nickname {   
+      font-family: 'Dancing Script', cursive;   
+      color: #ff5277;   
+      font-size: 3.2rem;   
+      font-weight: 700;  
+      line-height: 1.1;  
+      text-shadow: 0 0 18px rgba(255, 59, 96, 0.4);  
+    }  
+    .full-name {   
+      color: var(--text-sub);   
+      font-size: 0.85rem;   
+      letter-spacing: 2px;  
+      text-transform: uppercase;   
+      font-weight: 500;
+      margin-top: 4px;  
+      margin-bottom: 12px;   
+    }  
+    .badge {   
+      display: inline-block;   
+      background: rgba(255, 59, 96, 0.15);   
+      border: 1px solid rgba(255, 59, 96, 0.3);   
+      color: #ff758f;   
+      font-size: 0.8rem;   
+      padding: 4px 14px;   
+      border-radius: 999px;   
+      font-weight: 600;   
+      letter-spacing: 1px;
+    }  
+  
+    .counter-title {   
+      font-size: 0.78rem;   
+      text-transform: uppercase;   
+      letter-spacing: 2px;   
+      color: var(--text-sub);   
+      margin-bottom: 14px;   
+      text-align: center;   
+      font-weight: 700;  
+    }  
+    .counter-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }  
+    .time-unit { background: rgba(10, 14, 26, 0.65); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px 4px; text-align: center; }  
+    .time-unit .val { font-size: 1.15rem; font-weight: 800; color: #ffffff; display: block; }  
+    .time-unit .lbl { font-size: 0.65rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }  
+  
+    /* HEART TREE CANVAS */  
+    #treeCanvas { width: 100%; height: 310px; display: block; margin: 0 auto; }  
+    .tree-quote {   
+      margin-top: 14px;   
+      font-family: 'Dancing Script', cursive;  
+      font-size: 1.35rem;   
+      line-height: 1.5;  
+      color: #ffd6e0;   
+      padding: 14px 18px;   
+      background: rgba(255, 59, 96, 0.08);   
+      border-radius: 16px;   
+      border: 1px dashed rgba(255, 59, 96, 0.3);   
+      text-align: center;   
+    }  
+  
+    /* EVENT CARDS */  
+    .event-card { background: rgba(12, 16, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }  
+    .event-img { width: 100%; height: 140px; object-fit: cover; display: block; }  
+    .event-content { padding: 14px; }  
+    .event-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }  
+    .event-heading { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 6px; }  
+    .event-desc { font-size: 0.85rem; line-height: 1.55; color: #cbd5e1; font-weight: 300; }  
+  
+    /* SURPRISE BUTTON */  
+    .surprise-btn {  
+      display: inline-block;  
+      background: linear-gradient(135deg, #ff3b60, #a855f7);  
+      color: #ffffff;  
+      border: none;  
+      padding: 16px 36px;  
+      border-radius: 9999px;  
+      font-weight: 800;  
+      font-size: 1.05rem;  
+      letter-spacing: 0.5px;
+      cursor: pointer;  
+      box-shadow: 0 0 25px rgba(255, 59, 96, 0.5);  
+      animation: pulseGlow 2s infinite alternate;  
+      will-change: transform, box-shadow;
+    }  
+    @keyframes pulseGlow {  
+      0% { box-shadow: 0 0 15px rgba(255, 59, 96, 0.4); transform: scale(1); }  
+      100% { box-shadow: 0 0 32px rgba(168, 85, 247, 0.85); transform: scale(1.04); }  
+    }  
+  
+    /* SCREEN 3: HANGING BANNER */  
+    .banner-container { display: flex; justify-content: center; gap: 6px; margin-bottom: 25px; position: relative; }  
+    .pennant { padding: 8px 10px 14px; font-size: 0.85rem; font-weight: 800; color: #fff; clip-path: polygon(0 0, 100% 0, 50% 100%); animation: swing 2s ease-in-out infinite alternate; transform-origin: top center; will-change: transform; }  
+    @keyframes swing { 0% { transform: rotate(-4deg); } 100% { transform: rotate(4deg); } }  
+  
+    /* ANIMATED KAWAII CAKE */  
+    .cake-container {  
+      position: relative;  
+      width: 240px;  
+      height: 230px;  
+      margin: 10px auto 25px;  
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      justify-content: flex-end;  
+      cursor: pointer;  
+      user-select: none;  
+    }  
+  
+    .cake-container:active {  
+      transform: scale(0.96);  
+      transition: transform 0.1s ease;  
+    }  
+  
+    .cake-wrapper-bounce {  
+      animation: cakeFloat 3s ease-in-out infinite;  
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      position: relative;  
+      will-change: transform;
+    }  
+  
+    @keyframes cakeFloat {  
+      0%, 100% { transform: translateY(0); }  
+      50% { transform: translateY(-8px); }  
+    }  
+  
+    .glow-aura {  
+      position: absolute;  
+      top: -10px;  
+      width: 200px;  
+      height: 200px;  
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, rgba(11, 15, 25, 0) 70%);  
+      border-radius: 50%;  
+      opacity: 0;  
+      transition: opacity 1s ease;  
+      pointer-events: none;  
+    }  
+    .glow-aura.lit { opacity: 1; animation: auraPulse 1.8s infinite alternate; will-change: transform, opacity; }  
+    @keyframes auraPulse { 0% { transform: scale(0.92); opacity: 0.7; } 100% { transform: scale(1.1); opacity: 1; } }  
+  
+    /* CANDLES & FLAMES */  
+    .candles-group { display: flex; gap: 24px; z-index: 5; margin-bottom: -5px; }  
+    .candle { width: 12px; height: 42px; border-radius: 4px; position: relative; }  
+    .c1 { background: repeating-linear-gradient(45deg, #ff758f, #ff758f 6px, #ffffff 6px, #ffffff 12px); }  
+    .c2 { background: repeating-linear-gradient(-45deg, #60a5fa, #60a5fa 6px, #ffffff 6px, #ffffff 12px); }  
+    .c3 { background: repeating-linear-gradient(45deg, #34d399, #34d399 6px, #ffffff 6px, #ffffff 12px); }  
+      
+    .wick { position: absolute; top: -6px; left: 5px; width: 2px; height: 6px; background: #475569; }  
+    .flame {  
+      position: absolute;  
+      top: -20px;  
+      left: -1px;  
+      width: 14px;  
+      height: 20px;  
+      background: radial-gradient(circle at 50% 80%, #ffffff 10%, #fbbf24 50%, #f97316 100%);  
+      border-radius: 50% 50% 35% 35%;  
+      box-shadow: 0 0 15px #fbbf24;  
+      opacity: 0;  
+      transform: scale(0.2);  
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;  
+      will-change: transform, opacity;
+    }  
+    .flame.lit { opacity: 1; transform: scale(1); animation: flicker 0.12s infinite alternate; }  
+    @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 100% { transform: scale(1.1) rotate(2deg); } }  
+  
+    /* 2-TIER CAKE DESIGN */  
+    .cake-top-tier {  
+      width: 140px;  
+      height: 55px;  
+      background: #ffffff;  
+      border-radius: 16px 16px 10px 10px;  
+      position: relative;  
+      z-index: 4;  
+      box-shadow: inset 0 -6px 0 rgba(0,0,0,0.05);  
+    }  
+    .top-frosting { position: absolute; top: 0; width: 100%; height: 22px; background: #ff758f; border-radius: 16px 16px 0 0; }  
+    .top-drips { position: absolute; top: 18px; width: 100%; display: flex; justify-content: space-around; }  
+    .top-drip { width: 16px; height: 12px; background: #ff758f; border-radius: 0 0 8px 8px; }  
+  
+    .cake-bottom-tier {  
+      width: 210px;  
+      height: 85px;  
+      background: #ffffff;  
+      border-radius: 18px 18px 12px 12px;  
+      position: relative;  
+      z-index: 3;  
+      margin-top: -6px;  
+      box-shadow: inset 0 -8px 0 rgba(0,0,0,0.06), 0 15px 30px rgba(0, 0, 0, 0.5);  
+    }  
+    .bottom-frosting { position: absolute; top: 0; width: 100%; height: 30px; background: #a855f7; border-radius: 18px 18px 0 0; }  
+    .bottom-drips { position: absolute; top: 24px; width: 100%; display: flex; justify-content: space-around; }  
+    .bottom-drip { width: 22px; height: 16px; background: #a855f7; border-radius: 0 0 10px 10px; }  
+  
+    /* KAWAII EXPRESSION */  
+    .kawaii-face {  
+      position: absolute;  
+      bottom: 18px;  
+      left: 50%;  
+      transform: translateX(-50%);  
+      display: flex;  
+      align-items: center;  
+      gap: 32px;  
+    }  
+    .eye {  
+      width: 11px;  
+      height: 11px;  
+      background: #1e293b;  
+      border-radius: 50%;  
+      position: relative;  
+      animation: kawaiiBlink 3.8s infinite;  
+    }  
+    @keyframes kawaiiBlink {  
+      0%, 94%, 100% { transform: scaleY(1); }  
+      97% { transform: scaleY(0.1); }  
+    }  
+    .blush {  
+      position: absolute;  
+      width: 12px;  
+      height: 6px;  
+      background: #ff3b60;  
+      border-radius: 50%;  
+      opacity: 0.6;  
+      top: 9px;  
+    }  
+    .blush.left { left: -8px; }  
+    .blush.right { right: -8px; }  
+  
+    .mouth {  
+      position: absolute;  
+      bottom: -6px;  
+      left: 50%;  
+      transform: translateX(-50%);  
+      width: 14px;  
+      height: 9px;  
+      border-bottom: 3.5px solid #1e293b;  
+      border-radius: 0 0 10px 10px;  
+    }  
+  
+    .cherries { position: absolute; top: -10px; width: 100%; display: flex; justify-content: space-around; padding: 0 15px; }  
+    .cherry { width: 12px; height: 12px; background: #ff3b60; border-radius: 50%; box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2); }  
+  
+    .plate { width: 240px; height: 14px; background: #334155; border-radius: 10px; margin-top: -6px; z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }  
+  
+    .tap-hint {  
+      font-size: 0.82rem;  
+      font-weight: 500;
+      color: #94a3b8;  
+      background: rgba(255, 255, 255, 0.06);  
+      padding: 6px 16px;  
+      border-radius: 99px;  
+      border: 1px solid rgba(255, 255, 255, 0.1);  
+      margin-bottom: 20px;  
+      text-align: center;  
+      transition: opacity 0.5s ease;  
+    }  
+  
+    /* WISH CARD */  
+    .wish-card {  
+      font-family: 'Dancing Script', cursive;  
+      font-size: 1.4rem;  
+      line-height: 1.7;  
+      border-left: 4px solid var(--accent);  
+      color: #ffffff;  
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);  
+    }  
+  </style>  
+</head>  
+<body>  
   <canvas id="spaceCanvas"></canvas>
   <canvas id="effectsCanvas"></canvas>
 
-  <div class="app-container">
+  <div class="app-container">  
+    <!-- SCREEN 1: UNLOCK -->  
+    <div id="screen1" class="unlock-card">  
+      <div style="font-size: 3.4rem; margin-bottom: 16px;">✨</div>  
+      <h2 style="font-size: 1.65rem; margin-bottom: 10px; font-weight: 700;">Hi Safiya, there's something I want to tell you</h2>  
+      <p style="color: var(--text-sub); letter-spacing: 1px; font-weight: 500;">MEHZABIN ANSARI TISHA</p>  
+      <button class="pulse-btn" onclick="goToScreen2()">Tap to Open</button>  
+    </div>  
 
-    <!-- SCREEN 1: UNLOCK -->
-    <div id="screen1" class="unlock-card">
-      <div style="font-size: 3.4rem; margin-bottom: 16px;">✨</div>
-      <h2 style="font-size: 1.5rem; margin-bottom: 10px; font-weight: 800;">Hi Safiya, there's something I want to tell you</h2>
-      <p style="color: var(--text-sub); letter-spacing: 0.5px;">Mehzabin Ansari Tisha</p>
-      <button class="pulse-btn" onclick="goToScreen2()">Tap to Open</button>
-    </div>
+    <!-- SCREEN 2: MAIN EXPERIENCE -->  
+    <div id="screen2" class="view-screen">  
+      <div class="glass-box header-box">  
+        <div class="badge">JULY 29, 2005</div>  
+        <h1 class="nickname">Safiya</h1>  
+        <p class="full-name">Mehzabin Ansari Tisha</p>  
+      </div>  
 
-    <!-- SCREEN 2: MAIN EXPERIENCE -->
-    <div id="screen2" class="view-screen">
-      <div class="glass-box header-box">
-        <div class="badge">July 29, 2005</div>
-        <h1 class="nickname">Safiya</h1>
-        <p class="full-name">Mehzabin Ansari Tisha</p>
-      </div>
+      <div class="glass-box">  
+        <div class="counter-title">Time Existing in the Universe</div>  
+        <div class="counter-grid">  
+          <div class="time-unit"><span class="val" id="yrs">0</span><span class="lbl">Yrs</span></div>  
+          <div class="time-unit"><span class="val" id="days">0</span><span class="lbl">Days</span></div>  
+          <div class="time-unit"><span class="val" id="hrs">0</span><span class="lbl">Hrs</span></div>  
+          <div class="time-unit"><span class="val" id="mins">0</span><span class="lbl">Min</span></div>  
+          <div class="time-unit"><span class="val" id="secs">0</span><span class="lbl">Sec</span></div>  
+        </div>  
+      </div>  
 
-      <div class="glass-box">
-        <div class="counter-title">Time Existing in the Universe</div>
-        <div class="counter-grid">
-          <div class="time-unit"><span class="val" id="yrs">0</span><span class="lbl">Yrs</span></div>
-          <div class="time-unit"><span class="val" id="days">0</span><span class="lbl">Days</span></div>
-          <div class="time-unit"><span class="val" id="hrs">0</span><span class="lbl">Hrs</span></div>
-          <div class="time-unit"><span class="val" id="mins">0</span><span class="lbl">Min</span></div>
-          <div class="time-unit"><span class="val" id="secs">0</span><span class="lbl">Sec</span></div>
-        </div>
-      </div>
+      <div class="glass-box">  
+        <canvas id="treeCanvas"></canvas>  
+        <div class="tree-quote">  
+          "Like a living tree, genuine bonds grow quietly, branch with purpose, and bloom with eternal love."  
+        </div>  
+      </div>  
 
-      <div class="glass-box">
-        <canvas id="treeCanvas"></canvas>
-        <div class="tree-quote">
-          "Like a living tree, genuine bonds grow quietly, branch with purpose, and bloom with eternal love."
-        </div>
-      </div>
+      <!-- 3 CURATED WORLD/COSMIC EVENTS -->  
+      <div class="glass-box">  
+        <div style="font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--gold); margin-bottom: 16px;">  
+          🌍 What Happened in the Universe When You Arrived  
+        </div>  
 
-      <!-- 3 CURATED WORLD/COSMIC EVENTS -->
-      <div class="glass-box">
-        <div style="font-size: 1.05rem; font-weight: 700; color: var(--gold); margin-bottom: 16px;">
-          🌍 What Happened in the Universe When You Arrived
-        </div>
+        <!-- Event 1 -->  
+        <div class="event-card">  
+          <img class="event-img" src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80" alt="Space Expansion">  
+          <div class="event-content">  
+            <div class="event-tag">Cosmic Expansion</div>  
+            <div class="event-heading">Three New Worlds Unveiled</div>  
+            <div class="event-desc">On July 29, 2005, astronomers announced the simultaneous discovery of <strong>Eris, Haumea, and Makemake</strong>. The universe expanded to make room for you on the exact day you were born.</div>  
+          </div>  
+        </div>  
 
-        <!-- Event 1 -->
-        <div class="event-card">
-          <img class="event-img" src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80" alt="Space Expansion">
-          <div class="event-content">
-            <div class="event-tag">Cosmic Expansion</div>
-            <div class="event-heading">Three New Worlds Unveiled</div>
-            <div class="event-desc">On July 29, 2005, astronomers announced the simultaneous discovery of <strong>Eris, Haumea, and Makemake</strong>. The universe expanded to make room for you on the exact day you were born.</div>
-          </div>
-        </div>
+        <!-- Event 2 -->  
+        <div class="event-card">  
+          <img class="event-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="Solar Alignment">  
+          <div class="event-content">  
+            <div class="event-tag">Orbital Harmony</div>  
+            <div class="event-heading">NASA’s Historic Solar Alignment</div>  
+            <div class="event-desc">On July 29, 2005, Space Shuttle <i>Discovery</i> aligned in perfect orbital transit across the glowing disk of the Sun, creating a rare golden moment high above Earth.</div>  
+          </div>  
+        </div>  
 
-        <!-- Event 2 -->
-        <div class="event-card">
-          <img class="event-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="Solar Alignment">
-          <div class="event-content">
-            <div class="event-tag">Orbital Harmony</div>
-            <div class="event-heading">NASA’s Historic Solar Alignment</div>
-            <div class="event-desc">On July 29, 2005, Space Shuttle <i>Discovery</i> aligned in perfect orbital transit across the glowing disk of the Sun, creating a rare golden moment high above Earth.</div>
-          </div>
-        </div>
+        <!-- Event 3 -->  
+        <div class="event-card">  
+          <img class="event-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Starlight Aura">  
+          <div class="event-content">  
+            <div class="event-tag">Starlight Luminance</div>  
+            <div class="event-heading">Peak Atmospheric Glow</div>  
+            <div class="event-desc">Observatories recorded an extraordinary flare of atmospheric starlight luminescence on July 29, 2005—as if every star in the night sky shone just a little brighter to celebrate your arrival.</div>  
+          </div>  
+        </div>  
+      </div>  
 
-        <!-- Event 3 -->
-        <div class="event-card">
-          <img class="event-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Starlight Aura">
-          <div class="event-content">
-            <div class="event-tag">Starlight Luminance</div>
-            <div class="event-heading">Peak Atmospheric Glow</div>
-            <div class="event-desc">Observatories recorded an extraordinary flare of atmospheric starlight luminescence on July 29, 2005—as if every star in the night sky shone just a little brighter to celebrate your arrival.</div>
-          </div>
-        </div>
-      </div>
+      <!-- SEE THE SURPRISE BUTTON -->  
+      <div style="text-align: center; margin: 30px 0 15px;">  
+        <button class="surprise-btn" onclick="goToScreen3()">✨ See the Surprise 🎁</button>  
+      </div>  
+    </div>  
 
-      <!-- SEE THE SURPRISE BUTTON -->
-      <div style="text-align: center; margin: 30px 0 15px;">
-        <button class="surprise-btn" onclick="goToScreen3()">✨ See the Surprise 🎁</button>
-      </div>
-    </div>
+    <!-- SCREEN 3: CAKE & FINAL WISH -->  
+    <div id="screen3" class="view-screen">  
+      <div class="banner-container">  
+        <div class="pennant" style="background:#ff3b60; animation-delay:0.1s;">H</div>  
+        <div class="pennant" style="background:#3b82f6; animation-delay:0.2s;">A</div>  
+        <div class="pennant" style="background:#10b981; animation-delay:0.3s;">P</div>  
+        <div class="pennant" style="background:#fbbf24; animation-delay:0.4s;">P</div>  
+        <div class="pennant" style="background:#a855f7; animation-delay:0.5s;">Y</div>  
+        <div class="pennant" style="background:#ff3b60; margin-left: 8px; animation-delay:0.6s;">B</div>  
+        <div class="pennant" style="background:#3b82f6; animation-delay:0.7s;">D</div>  
+        <div class="pennant" style="background:#10b981; animation-delay:0.8s;">A</div>  
+        <div class="pennant" style="background:#fbbf24; animation-delay:0.9s;">Y</div>  
+      </div>  
 
-    <!-- SCREEN 3: CAKE & FINAL WISH -->
-    <div id="screen3" class="view-screen">
-      
-      <div class="banner-container">
-        <div class="pennant" style="background:#ff3b60; animation-delay:0.1s;">H</div>
-        <div class="pennant" style="background:#3b82f6; animation-delay:0.2s;">A</div>
-        <div class="pennant" style="background:#10b981; animation-delay:0.3s;">P</div>
-        <div class="pennant" style="background:#fbbf24; animation-delay:0.4s;">P</div>
-        <div class="pennant" style="background:#a855f7; animation-delay:0.5s;">Y</div>
-        <div class="pennant" style="background:#ff3b60; margin-left: 8px; animation-delay:0.6s;">B</div>
-        <div class="pennant" style="background:#3b82f6; animation-delay:0.7s;">D</div>
-        <div class="pennant" style="background:#10b981; animation-delay:0.8s;">A</div>
-        <div class="pennant" style="background:#fbbf24; animation-delay:0.9s;">Y</div>
-      </div>
+      <!-- ANIMATED KAWAII CAKE -->  
+      <div class="cake-container" onclick="lightCandlesAndSurprise()">  
+        <div class="glow-aura" id="glowAura"></div>  
+          
+        <div class="cake-wrapper-bounce">  
+          <!-- Candles -->  
+          <div class="candles-group">  
+            <div class="candle c1"><div class="wick"></div><div class="flame" id="flame1"></div></div>  
+            <div class="candle c2"><div class="wick"></div><div class="flame" id="flame2"></div></div>  
+            <div class="candle c3"><div class="wick"></div><div class="flame" id="flame3"></div></div>  
+          </div>  
 
-      <!-- ANIMATED KAWAII CAKE -->
-      <div class="cake-container" onclick="lightCandlesAndSurprise()">
-        <div class="glow-aura" id="glowAura"></div>
+          <!-- Top Tier -->  
+          <div class="cake-top-tier">  
+            <div class="top-frosting"></div>  
+            <div class="top-drips">  
+              <div class="top-drip"></div>  
+              <div class="top-drip" style="height:16px;"></div>  
+              <div class="top-drip"></div>  
+              <div class="top-drip" style="height:14px;"></div>  
+            </div>  
+            <div class="cherries">  
+              <div class="cherry"></div>  
+              <div class="cherry"></div>  
+              <div class="cherry"></div>  
+            </div>  
+          </div>  
+
+          <!-- Bottom Tier with Kawaii Face -->  
+          <div class="cake-bottom-tier">  
+            <div class="bottom-frosting"></div>  
+            <div class="bottom-drips">  
+              <div class="bottom-drip"></div>  
+              <div class="bottom-drip" style="height:22px;"></div>  
+              <div class="bottom-drip"></div>  
+              <div class="bottom-drip" style="height:20px;"></div>  
+              <div class="bottom-drip"></div>  
+            </div>  
+
+            <!-- Face -->  
+            <div class="kawaii-face">  
+              <div class="eye"><div class="blush left"></div></div>  
+              <div class="mouth"></div>  
+              <div class="eye"><div class="blush right"></div></div>  
+            </div>  
+          </div>  
+
+          <div class="plate"></div>  
+        </div>  
+      </div>  
+
+      <div class="tap-hint" id="tapHint">✨ Tap the cake to light candles & celebrate ✨</div>  
+
+      <!-- FINAL WISH CARD -->  
+      <div class="glass-box wish-card">  
+        "Happy birthday Safiya. May allah give you the best thing you deserve. I will be with you forever. Maybe like your husband or maybe the bestest friend of your life. Never think you're alone in this universe. I will be with you till my last breath falls out. I love you forever pakhi"  
+        <div style="margin-top: 14px; color: #ff758f; font-weight: 700; text-align: right; font-size: 1.2rem;">Forever & Always ❤️</div>  
+      </div>  
+    </div>  
+  </div>    
+
+  <script>  
+    const BIRTH_DATE = new Date('2005-07-29T00:00:00');  
+  
+    function goToScreen2() {  
+      const s1 = document.getElementById('screen1');
+      s1.style.opacity = '0';  
+      setTimeout(() => {  
+        s1.style.display = 'none';  
+        const s2 = document.getElementById('screen2');  
+        s2.classList.add('active');  
+        startLiveCounter();  
+        initProfessionalTree();  
+      }, 500);  
+    }  
+  
+    function goToScreen3() {  
+      const s2 = document.getElementById('screen2');  
+      s2.style.opacity = '0';  
+      setTimeout(() => {  
+        s2.style.display = 'none';  
+        const s3 = document.getElementById('screen3');  
+        s3.classList.add('active');  
+        window.scrollTo({ top: 0, behavior: 'smooth' });  
+        setTimeout(lightCandlesAndSurprise, 600);  
+      }, 500);  
+    }  
+  
+    /* LIVE COUNTER */  
+    function startLiveCounter() {  
+      function update() {  
+        const diffMs = new Date() - BIRTH_DATE;  
+        const totalSecs = Math.floor(diffMs / 1000);  
+        const totalMins = Math.floor(totalSecs / 60);  
+        const totalHrs = Math.floor(totalMins / 60);  
+        const totalDays = Math.floor(totalHrs / 24);  
+  
+        document.getElementById('yrs').innerText = Math.floor(totalDays / 365.2425);  
+        document.getElementById('days').innerText = Math.floor(totalDays % 365.2425);  
+        document.getElementById('hrs').innerText = totalHrs % 24;  
+        document.getElementById('mins').innerText = totalMins % 60;  
+        document.getElementById('secs').innerText = totalSecs % 60;  
+      }  
+      update();  
+      setInterval(update, 1000);  
+    }  
+  
+    /* STARFIELD BACKGROUND */  
+    const sCanvas = document.getElementById('spaceCanvas');  
+    const sCtx = sCanvas.getContext('2d');  
+    
+    function resizeSpaceCanvas() {
+      sCanvas.width = window.innerWidth;  
+      sCanvas.height = window.innerHeight;  
+    }
+    resizeSpaceCanvas();
+    window.addEventListener('resize', resizeSpaceCanvas);
+
+    let stars = [];  
+    for (let i = 0; i < 60; i++) {  
+      stars.push({  
+        x: Math.random() * sCanvas.width,  
+        y: Math.random() * sCanvas.height,  
+        size: Math.random() * 1.8 + 0.4,  
+        alpha: Math.random(),  
+        speed: Math.random() * 0.012 + 0.004  
+      });  
+    }  
+
+    function renderSpace() {  
+      sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);  
+      stars.forEach(st => {  
+        st.alpha += st.speed;  
+        if (st.alpha > 1 || st.alpha < 0) st.speed = -st.speed;  
+        sCtx.fillStyle = `rgba(255, 255, 255, ${Math.abs(st.alpha)})`;  
+        sCtx.beginPath();  
+        sCtx.arc(st.x, st.y, st.size, 0, Math.PI * 2);  
+        sCtx.fill();  
+      });  
+      requestAnimationFrame(renderSpace);  
+    }  
+    renderSpace();  
+  
+    /* DRAW GLOWING HEART SHAPE ON CANVAS */  
+    function drawHeart(ctx, x, y, size, scale, angle, color) {  
+      ctx.save();  
+      ctx.translate(x, y);  
+      ctx.rotate(angle);  
+      ctx.scale(scale, scale);  
         
-        <div class="cake-wrapper-bounce">
-          <!-- Candles -->
-          <div class="candles-group">
-            <div class="candle c1"><div class="wick"></div><div class="flame" id="flame1"></div></div>
-            <div class="candle c2"><div class="wick"></div><div class="flame" id="flame2"></div></div>
-            <div class="candle c3"><div class="wick"></div><div class="flame" id="flame3"></div></div>
-          </div>
-
-          <!-- Top Tier -->
-          <div class="cake-top-tier">
-            <div class="top-frosting"></div>
-            <div class="top-drips">
-              <div class="top-drip"></div>
-              <div class="top-drip" style="height:16px;"></div>
-              <div class="top-drip"></div>
-              <div class="top-drip" style="height:14px;"></div>
-            </div>
-            <div class="cherries">
-              <div class="cherry"></div>
-              <div class="cherry"></div>
-              <div class="cherry"></div>
-            </div>
-          </div>
-
-          <!-- Bottom Tier with Kawaii Face -->
-          <div class="cake-bottom-tier">
-            <div class="bottom-frosting"></div>
-            <div class="bottom-drips">
-              <div class="bottom-drip"></div>
-              <div class="bottom-drip" style="height:22px;"></div>
-              <div class="bottom-drip"></div>
-              <div class="bottom-drip" style="height:20px;"></div>
-              <div class="bottom-drip"></div>
-            </div>
-
-            <!-- Face -->
-            <div class="kawaii-face">
-              <div class="eye"><div class="blush left"></div></div>
-              <div class="mouth"></div>
-              <div class="eye"><div class="blush right"></div></div>
-            </div>
-          </div>
-
-          <div class="plate"></div>
-        </div>
-      </div>
-
-      <div class="tap-hint" id="tapHint">✨ Tap the cake to light candles & celebrate ✨</div>
-
-      <!-- FINAL WISH CARD -->
-      <div class="glass-box wish-card">
-        "Happy birthday Safiya. May allah give you the best thing you deserve. I will be with you forever. Maybe like your husband or maybe the bestest friend of your life. Never think you're alone in this universe. I will be with you till my last breath falls out. I love you forever pakhi"
-        <div style="margin-top: 14px; color: #ff758f; font-weight: 700; text-align: right; font-size: 1.2rem;">Forever & Always ❤️</div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script>
-    const BIRTH_DATE = new Date('2005-07-29T00:00:00');
-
-    function goToScreen2() {
-      document.getElementById('screen1').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('screen1').style.display = 'none';
-        const s2 = document.getElementById('screen2');
-        s2.classList.add('active');
-        startLiveCounter();
-        initProfessionalTree();
-      }, 500);
-    }
-
-    function goToScreen3() {
-      const s2 = document.getElementById('screen2');
-      s2.style.opacity = '0';
-      setTimeout(() => {
-        s2.style.display = 'none';
-        const s3 = document.getElementById('screen3');
-        s3.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(lightCandlesAndSurprise, 600);
-      }, 500);
-    }
-
-    /* LIVE COUNTER */
-    function startLiveCounter() {
-      function update() {
-        const diffMs = new Date() - BIRTH_DATE;
-        const totalSecs = Math.floor(diffMs / 1000);
-        const totalMins = Math.floor(totalSecs / 60);
-        const totalHrs = Math.floor(totalMins / 60);
-        const totalDays = Math.floor(totalHrs / 24);
-
-        document.getElementById('yrs').innerText = Math.floor(totalDays / 365.2425);
-        document.getElementById('days').innerText = Math.floor(totalDays % 365.2425);
-        document.getElementById('hrs').innerText = totalHrs % 24;
-        document.getElementById('mins').innerText = totalMins % 60;
-        document.getElementById('secs').innerText = totalSecs % 60;
-      }
-      update();
-      setInterval(update, 1000);
-    }
-
-    /* STARFIELD BACKGROUND */
-    const sCanvas = document.getElementById('spaceCanvas');
-    const sCtx = sCanvas.getContext('2d');
-    sCanvas.width = window.innerWidth;
-    sCanvas.height = window.innerHeight;
-    let stars = [];
-    for (let i = 0; i < 75; i++) {
-      stars.push({
-        x: Math.random() * sCanvas.width,
-        y: Math.random() * sCanvas.height,
-        size: Math.random() * 1.8 + 0.4,
-        alpha: Math.random(),
-        speed: Math.random() * 0.012 + 0.004
-      });
-    }
-    function renderSpace() {
-      sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
-      stars.forEach(st => {
-        st.alpha += st.speed;
-        if (st.alpha > 1 || st.alpha < 0) st.speed = -st.speed;
-        sCtx.fillStyle = `rgba(255, 255, 255, ${Math.abs(st.alpha)})`;
-        sCtx.beginPath();
-        sCtx.arc(st.x, st.y, st.size, 0, Math.PI * 2);
-        sCtx.fill();
-      });
-      requestAnimationFrame(renderSpace);
-    }
-    renderSpace();
-
-    /* DRAW GLOWING HEART SHAPE ON CANVAS */
-    function drawHeart(ctx, x, y, size, scale, angle, color) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(angle);
-      ctx.scale(scale, scale);
-      
-      ctx.fillStyle = color;
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 8;
-      
-      ctx.beginPath();
-      const h = size;
-      ctx.moveTo(0, -h / 4);
-      ctx.bezierCurveTo(-h / 2, -h * 0.8, -h, 0, 0, h * 0.7);
-      ctx.bezierCurveTo(h, 0, h / 2, -h * 0.8, 0, -h / 4);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-    }
-
-    /* ORGANIC FRACTAL TREE WITH HEART BLOSSOMS */
-    function initProfessionalTree() {
-      const canvas = document.getElementById('treeCanvas');
-      const ctx = canvas.getContext('2d');
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      let branches = [];
-      let blossoms = [];
-
-      function createBranch(startX, startY, length, angle, thickness, depth) {
-        const endX = startX + length * Math.sin(angle);
-        const endY = startY - length * Math.cos(angle);
+      ctx.fillStyle = color;  
+      ctx.shadowColor = color;  
+      ctx.shadowBlur = 6;  
         
-        const branch = {
-          startX, startY, endX, endY,
-          thickness, depth, length,
-          progress: 0,
-          completed: false,
-          angle
-        };
-        branches.push(branch);
+      ctx.beginPath();  
+      const h = size;  
+      ctx.moveTo(0, -h / 4);  
+      ctx.bezierCurveTo(-h / 2, -h * 0.8, -h, 0, 0, h * 0.7);  
+      ctx.bezierCurveTo(h, 0, h / 2, -h * 0.8, 0, -h / 4);  
+      ctx.closePath();  
+      ctx.fill();  
+      ctx.restore();  
+    }  
+  
+    /* ORGANIC FRACTAL TREE WITH HEART BLOSSOMS */  
+    function initProfessionalTree() {  
+      const canvas = document.getElementById('treeCanvas');  
+      const ctx = canvas.getContext('2d');  
+      const dpr = window.devicePixelRatio || 1;  
+      const rect = canvas.getBoundingClientRect();  
+      
+      canvas.width = rect.width * dpr;  
+      canvas.height = rect.height * dpr;  
+      ctx.scale(dpr, dpr);  
+  
+      let branches = [];  
+      let blossoms = [];  
+  
+      function createBranch(startX, startY, length, angle, thickness, depth) {  
+        const endX = startX + length * Math.sin(angle);  
+        const endY = startY - length * Math.cos(angle);  
+          
+        const branch = {  
+          startX, startY, endX, endY,  
+          thickness, depth, length,  
+          progress: 0,  
+          completed: false,  
+          angle  
+        };  
+        branches.push(branch);  
+  
+        if (depth > 0) {  
+          const subCount = Math.random() > 0.82 ? 3 : 2;  
+          for (let i = 0; i < subCount; i++) {  
+            const spread = (Math.random() * 0.45 + 0.25) * (i === 0 ? -1 : 1);  
+            const lenRatio = Math.random() * 0.18 + 0.72;  
+            createBranch(endX, endY, length * lenRatio, angle + spread, thickness * 0.7, depth - 1);  
+          }  
+        } else {  
+          const heartColors = ['#ff3b60', '#ff758f', '#f43f5e', '#fb7185', '#e11d48'];  
+          blossoms.push({  
+            x: endX,  
+            y: endY,  
+            size: Math.random() * 6 + 7,  
+            scale: 0,  
+            angle: (Math.random() - 0.5) * 0.8,  
+            color: heartColors[Math.floor(Math.random() * heartColors.length)]  
+          });  
+        }  
+      }  
+  
+      createBranch(rect.width / 2, rect.height - 12, 58, 0, 8, 8);  
+  
+      let currentDepthLevel = 8;  
+  
+      function drawTree() {  
+        ctx.clearRect(0, 0, rect.width, rect.height);  
+        let levelActive = false;  
+  
+        branches.forEach(b => {  
+          if (b.completed) {  
+            ctx.strokeStyle = `hsl(330, 25%, ${18 + b.depth * 5}%)`;  
+            ctx.lineWidth = b.thickness;  
+            ctx.lineCap = 'round';  
+            ctx.beginPath();  
+            ctx.moveTo(b.startX, b.startY);  
+            ctx.lineTo(b.endX, b.endY);  
+            ctx.stroke();  
+          } else if (b.depth === currentDepthLevel) {  
+            levelActive = true;  
+            b.progress += 0.08;  
+            if (b.progress >= 1) {  
+              b.progress = 1;  
+              b.completed = true;  
+            }  
+            const currX = b.startX + (b.endX - b.startX) * b.progress;  
+            const currY = b.startY + (b.endY - b.startY) * b.progress;  
+  
+            ctx.strokeStyle = `hsl(330, 25%, ${18 + b.depth * 5}%)`;  
+            ctx.lineWidth = b.thickness;  
+            ctx.lineCap = 'round';  
+            ctx.beginPath();  
+            ctx.moveTo(b.startX, b.startY);  
+            ctx.lineTo(currX, currY);  
+            ctx.stroke();  
+          }  
+        });  
+  
+        if (!levelActive && currentDepthLevel >= 0) {  
+          currentDepthLevel--;  
+        }  
 
-        if (depth > 0) {
-          const subCount = Math.random() > 0.82 ? 3 : 2;
-          for (let i = 0; i < subCount; i++) {
-            const spread = (Math.random() * 0.45 + 0.25) * (i === 0 ? -1 : 1);
-            const lenRatio = Math.random() * 0.18 + 0.72;
-            createBranch(endX, endY, length * lenRatio, angle + spread, thickness * 0.7, depth - 1);
-          }
-        } else {
-          // Add heart blossom at branch ends
-          const heartColors = ['#ff3b60', '#ff758f', '#f43f5e', '#fb7185', '#e11d48'];
-          blossoms.push({
-            x: endX,
-            y: endY,
-            size: Math.random() * 6 + 7,
-            scale: 0,
-            angle: (Math.random() - 0.5) * 0.8,
-            color: heartColors[Math.floor(Math.random() * heartColors.length)]
-          });
-        }
-      }
-
-      createBranch(rect.width / 2, rect.height - 12, 58, 0, 8, 8);
-
-      let currentDepthLevel = 8;
-
-      function drawTree() {
-        ctx.clearRect(0, 0, rect.width, rect.height);
-        let levelActive = false;
-
-        branches.forEach(b => {
-          if (b.completed) {
-            ctx.strokeStyle = `hsl(330, 25%, ${18 + b.depth * 5}%)`;
-            ctx.lineWidth = b.thickness;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(b.startX, b.startY);
-            ctx.lineTo(b.endX, b.endY);
-            ctx.stroke();
-          } else if (b.depth === currentDepthLevel) {
-            levelActive = true;
-            b.progress += 0.08;
-            if (b.progress >= 1) {
-              b.progress = 1;
-              b.completed = true;
+        let blossomsAnimating = false;
+        if (currentDepthLevel <= 2) {  
+          blossoms.forEach(bl => {  
+            if (bl.scale < 1) {
+              bl.scale += 0.04;  
+              if (bl.scale > 1) bl.scale = 1;
+              blossomsAnimating = true;
             }
-            const currX = b.startX + (b.endX - b.startX) * b.progress;
-            const currY = b.startY + (b.endY - b.startY) * b.progress;
-
-            ctx.strokeStyle = `hsl(330, 25%, ${18 + b.depth * 5}%)`;
-            ctx.lineWidth = b.thickness;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(b.startX, b.startY);
-            ctx.lineTo(currX, currY);
-            ctx.stroke();
-          }
-        });
-
-        if (!levelActive && currentDepthLevel >= 0) {
-          currentDepthLevel--;
+            drawHeart(ctx, bl.x, bl.y, bl.size, bl.scale, bl.angle, bl.color);  
+          });  
+        }  
+  
+        if (currentDepthLevel >= 0 || blossomsAnimating || blossoms.some(bl => bl.scale < 1)) {
+          requestAnimationFrame(drawTree);  
         }
-
-        if (currentDepthLevel <= 2) {
-          blossoms.forEach(bl => {
-            if (bl.scale < 1) bl.scale += 0.04;
-            drawHeart(ctx, bl.x, bl.y, bl.size, bl.scale, bl.angle, bl.color);
-          });
-        }
-
-        requestAnimationFrame(drawTree);
-      }
-
-      drawTree();
-    }
-
-    /* CAKE LIGHTING & CONFETTI / HEART BURST */
-    let isLit = false;
-    function lightCandlesAndSurprise() {
-      if (isLit) return;
-      isLit = true;
-
-      const hint = document.getElementById('tapHint');
-      if (hint) hint.style.opacity = '0';
-
-      setTimeout(() => document.getElementById('flame1').classList.add('lit'), 150);
-      setTimeout(() => document.getElementById('flame2').classList.add('lit'), 400);
-      setTimeout(() => {
-        document.getElementById('flame3').classList.add('lit');
-        document.getElementById('glowAura').classList.add('lit');
-        triggerEffects();
-      }, 650);
-    }
-
-    function triggerEffects() {
-      const canvas = document.getElementById('effectsCanvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const colors = ['#ff3b60', '#3b82f6', '#10b981', '#fbbf24', '#a855f7', '#ff758f'];
-
-      for (let i = 0; i < 90; i++) {
-        particles.push({
-          x: canvas.width / 2,
-          y: canvas.height / 2 + 30,
-          vx: (Math.random() - 0.5) * 14,
-          vy: (Math.random() - 0.85) * 16,
-          size: Math.random() * 7 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          isHeart: Math.random() > 0.5,
-          rotation: Math.random() * 360,
-          rSpeed: (Math.random() - 0.5) * 8
-        });
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let active = false;
-
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.28;
-          p.rotation += p.rSpeed;
-
-          if (p.y < canvas.height) active = true;
-
-          if (p.isHeart) {
-            drawHeart(ctx, p.x, p.y, p.size, 1, (p.rotation * Math.PI) / 180, p.color);
-          } else {
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate((p.rotation * Math.PI) / 180);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-            ctx.restore();
-          }
-        });
-
-        if (active) requestAnimationFrame(animate);
-      }
-      animate();
-    }
-  </script>
-</body>
+      }  
+  
+      drawTree();  
+    }  
+  
+    /* CAKE LIGHTING & CONFETTI / HEART BURST */  
+    let isLit = false;  
+    function lightCandlesAndSurprise() {  
+      if (isLit) return;  
+      isLit = true;  
+  
+      const hint = document.getElementById('tapHint');  
+      if (hint) hint.style.opacity = '0';  
+  
+      setTimeout(() => document.getElementById('flame1').classList.add('lit'), 150);  
+      setTimeout(() => document.getElementById('flame2').classList.add('lit'), 400);  
+      setTimeout(() => {  
+        document.getElementById('flame3').classList.add('lit');  
+        document.getElementById('glowAura').classList.add('lit');  
+        triggerEffects();  
+      }, 650);  
+    }  
+  
+    function triggerEffects() {  
+      const canvas = document.getElementById('effectsCanvas');  
+      const ctx = canvas.getContext('2d');  
+      canvas.width = window.innerWidth;  
+      canvas.height = window.innerHeight;  
+  
+      const particles = [];  
+      const colors = ['#ff3b60', '#3b82f6', '#10b981', '#fbbf24', '#a855f7', '#ff758f'];  
+  
+      for (let i = 0; i < 80; i++) {  
+        particles.push({  
+          x: canvas.width / 2,  
+          y: canvas.height / 2 + 30,  
+          vx: (Math.random() - 0.5) * 14,  
+          vy: (Math.random() - 0.85) * 16,  
+          size: Math.random() * 7 + 4,  
+          color: colors[Math.floor(Math.random() * colors.length)],  
+          isHeart: Math.random() > 0.5,  
+          rotation: Math.random() * 360,  
+          rSpeed: (Math.random() - 0.5) * 8  
+        });  
+      }  
+  
+      function animate() {  
+        ctx.clearRect(0, 0, canvas.width, canvas.height);  
+        let active = false;  
+  
+        particles.forEach(p => {  
+          p.x += p.vx;  
+          p.y += p.vy;  
+          p.vy += 0.28;  
+          p.rotation += p.rSpeed;  
+  
+          if (p.y < canvas.height) active = true;  
+  
+          if (p.isHeart) {  
+            drawHeart(ctx, p.x, p.y, p.size, 1, (p.rotation * Math.PI) / 180, p.color);  
+          } else {  
+            ctx.save();  
+            ctx.translate(p.x, p.y);  
+            ctx.rotate((p.rotation * Math.PI) / 180);  
+            ctx.fillStyle = p.color;  
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);  
+            ctx.restore();  
+          }  
+        });  
+  
+        if (active) requestAnimationFrame(animate);  
+      }  
+      animate();  
+    }  
+  </script>  
+</body>  
 </html>
