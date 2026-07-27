@@ -381,19 +381,19 @@
     .plate { width: 240px; height: 14px; background: #334155; border-radius: 10px; margin-top: -6px; z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }  
   
     .tap-hint {  
-      font-size: 0.82rem;  
-      font-weight: 500;
-      color: #94a3b8;  
-      background: rgba(255, 255, 255, 0.06);  
-      padding: 6px 16px;  
+      font-size: 0.85rem;  
+      font-weight: 600;  
+      color: #ffd6e0;  
+      background: rgba(255, 59, 96, 0.12);  
+      padding: 8px 18px;  
       border-radius: 99px;  
-      border: 1px solid rgba(255, 255, 255, 0.1);  
+      border: 1px solid rgba(255, 59, 96, 0.25);  
       margin-bottom: 20px;  
       text-align: center;  
       transition: opacity 0.5s ease;  
     }  
   
-    /* WISH CARD */  
+    /* WISH CARD (Initially Hidden, Smooth Reveal) */  
     .wish-card {  
       font-family: 'Dancing Script', cursive;  
       font-size: 1.4rem;  
@@ -401,6 +401,10 @@
       border-left: 4px solid var(--accent);  
       color: #ffffff;  
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);  
+      display: none;  
+      opacity: 0;  
+      transform: translateY(20px);  
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);  
     }  
   </style>  
 </head>  
@@ -500,8 +504,8 @@
         <div class="pennant" style="background:#fbbf24; animation-delay:0.9s;">Y</div>  
       </div>  
 
-      <!-- ANIMATED KAWAII CAKE -->  
-      <div class="cake-container" onclick="lightCandlesAndSurprise()">  
+      <!-- ANIMATED KAWAII CAKE (Interactive Taps) -->  
+      <div class="cake-container" onclick="handleCakeInteraction()">  
         <div class="glow-aura" id="glowAura"></div>  
           
         <div class="cake-wrapper-bounce">  
@@ -551,10 +555,10 @@
         </div>  
       </div>  
 
-      <div class="tap-hint" id="tapHint">✨ Tap the cake to light candles & celebrate ✨</div>  
+      <div class="tap-hint" id="tapHint">✨ Tap the cake to light the candles ✨</div>  
 
-      <!-- FINAL WISH CARD -->  
-      <div class="glass-box wish-card">  
+      <!-- FINAL WISH CARD (Revealed on 2nd tap) -->  
+      <div class="glass-box wish-card" id="wishCard">  
         "Happy birthday Safiya. May allah give you the best thing you deserve. I will be with you forever. Maybe like your husband or maybe the bestest friend of your life. Never think you're alone in this universe. I will be with you till my last breath falls out. I love you forever pakhi"  
         <div style="margin-top: 14px; color: #ff758f; font-weight: 700; text-align: right; font-size: 1.2rem;">Forever & Always ❤️</div>  
       </div>  
@@ -584,7 +588,6 @@
         const s3 = document.getElementById('screen3');  
         s3.classList.add('active');  
         window.scrollTo({ top: 0, behavior: 'smooth' });  
-        setTimeout(lightCandlesAndSurprise, 600);  
       }, 500);  
     }  
   
@@ -772,22 +775,55 @@
       drawTree();  
     }  
   
-    /* CAKE LIGHTING & CONFETTI / HEART BURST */  
-    let isLit = false;  
-    function lightCandlesAndSurprise() {  
-      if (isLit) return;  
-      isLit = true;  
-  
+    /* INTERACTIVE CAKE STATE CONTROL */  
+    let cakeState = 'UNLIT'; // States: 'UNLIT', 'LIGHTING', 'LIT', 'REVEALED'
+
+    function handleCakeInteraction() {  
       const hint = document.getElementById('tapHint');  
-      if (hint) hint.style.opacity = '0';  
-  
-      setTimeout(() => document.getElementById('flame1').classList.add('lit'), 150);  
-      setTimeout(() => document.getElementById('flame2').classList.add('lit'), 400);  
-      setTimeout(() => {  
-        document.getElementById('flame3').classList.add('lit');  
-        document.getElementById('glowAura').classList.add('lit');  
+
+      // FIRST TAP: LIGHT THE CANDLES
+      if (cakeState === 'UNLIT') {  
+        cakeState = 'LIGHTING';  
+        
+        setTimeout(() => document.getElementById('flame1').classList.add('lit'), 150);  
+        setTimeout(() => document.getElementById('flame2').classList.add('lit'), 400);  
+        setTimeout(() => {  
+          document.getElementById('flame3').classList.add('lit');  
+          document.getElementById('glowAura').classList.add('lit');  
+          
+          // Update hint message once all 3 candles turn on
+          if (hint) {  
+            hint.innerText = "✨ Tap to blow the candle and see the card message ✨";  
+          }  
+          cakeState = 'LIT';  
+        }, 650);  
+      }   
+      // SECOND TAP: BLOW OUT CANDLES & REVEAL CARD
+      else if (cakeState === 'LIT') {  
+        cakeState = 'REVEALED';  
+
+        // Blow out candles
+        document.getElementById('flame1').classList.remove('lit');  
+        document.getElementById('flame2').classList.remove('lit');  
+        document.getElementById('flame3').classList.remove('lit');  
+        document.getElementById('glowAura').classList.remove('lit');  
+
+        // Fade out hint text
+        if (hint) hint.style.opacity = '0';  
+
+        // Trigger confetti/particle explosion
         triggerEffects();  
-      }, 650);  
+
+        // Smoothly reveal the quoted wish card
+        const card = document.getElementById('wishCard');  
+        if (card) {  
+          card.style.display = 'block';  
+          setTimeout(() => {  
+            card.style.opacity = '1';  
+            card.style.transform = 'translateY(0)';  
+          }, 30);  
+        }  
+      }  
     }  
   
     function triggerEffects() {  
